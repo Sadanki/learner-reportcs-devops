@@ -17,3 +17,7 @@ spec:
         image: {{ .Values.frontend.image }}
         ports:
         - containerPort: {{ .Values.frontend.port }}
+        env:
+        {{- with .Values.frontend.env }}
+        {{- toYaml . | nindent 10 }}
+        {{- end }}

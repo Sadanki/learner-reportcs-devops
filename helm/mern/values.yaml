@@ -1,5 +1,5 @@
 backend:
-  image: vignesh342/learnerreportcs_backend
+  image: vignesh342/learnerreportcs-backend:latest
   replicas: 2
   port: 5000
   mongoUri: "mongodb://mongo-service:27017/learnerreportcs"
@@ -7,12 +7,16 @@ backend:
   jwtSecretKey: "thisIsMyJwtSecretKey"
 
 frontend:
-  image: vignesh342/learnerreportcs_frontend
+  image: vignesh342/learnerreportcs-frontend:latest
   replicas: 2
   port: 80
+  env:
+    - name: REACT_APP_API_BASE
+      value: http://backend-service:5000
+
+    
 
 mongo:
   image: mongo:latest
   replicas: 1
   port: 27017
-

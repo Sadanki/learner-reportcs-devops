@@ -19,11 +19,12 @@ spec:
         - containerPort: 5000
         env:
         - name: MONGO_URI
-          value: mongodb://mongo-service:27017/learnerreportcs
+          value: mongodb://mongo:27017/learnerreportcs
         - name: HASH_KEY
           value: thisIsMyHashKey
         - name: JWT_SECRET_KEY
           value: thisIsMyJwtSecretKey
+
 ---
 apiVersion: v1
 kind: Service
