@@ -13,8 +13,9 @@ pipeline {
             steps {
                 echo "Cloning frontend and backend repositories..."
                 sh 'rm -rf learnerReportCS_frontend learnerReportCS_backend'
-                sh 'git clone https://github.com/UnpredictablePrashant/learnerReportCS_frontend.git'
-                sh 'git clone https://github.com/UnpredictablePrashant/learnerReportCS_backend.git'
+                sh 'git clone https://github.com/Sadanki/learnerReportCS_frontend.git'
+                sh 'git clone https://github.com/Sadanki/learnerReportCS_backend.git'
+
             }
         }
 
