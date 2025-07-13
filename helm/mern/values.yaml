@@ -1,0 +1,18 @@
+backend:
+  image: vignesh342/learnerreportcs_backend
+  replicas: 2
+  port: 5000
+  mongoUri: "mongodb://mongo-service:27017/learnerreportcs"
+  hashKey: "thisIsMyHashKey"
+  jwtSecretKey: "thisIsMyJwtSecretKey"
+
+frontend:
+  image: vignesh342/learnerreportcs_frontend
+  replicas: 2
+  port: 80
+
+mongo:
+  image: mongo:latest
+  replicas: 1
+  port: 27017
+
