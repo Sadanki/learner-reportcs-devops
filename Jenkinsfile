@@ -22,7 +22,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 dir('learnerReportCS_frontend') {
-                    sh 'docker build -t $FRONTEND_IMAGE .'
+                    sh 'docker build --no-cache -t $FRONTEND_IMAGE .'
                 }
             }
         }
