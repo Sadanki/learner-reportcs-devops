@@ -15,14 +15,13 @@ pipeline {
                 sh 'rm -rf learnerReportCS_frontend learnerReportCS_backend'
                 sh 'git clone https://github.com/Sadanki/learnerReportCS_frontend.git'
                 sh 'git clone https://github.com/Sadanki/learnerReportCS_backend.git'
-
             }
         }
 
         stage('Build Frontend Docker Image') {
             steps {
                 dir('learnerReportCS_frontend') {
-                    sh 'docker build --no-cache -t $FRONTEND_IMAGE .'
+                    sh "docker build --no-cache -t ${env.FRONTEND_IMAGE} ."
                 }
             }
         }
@@ -30,7 +29,7 @@ pipeline {
         stage('Build Backend Docker Image') {
             steps {
                 dir('learnerReportCS_backend') {
-                    sh 'docker build -t $BACKEND_IMAGE .'
+                    sh "docker build -t ${env.BACKEND_IMAGE} ."
                 }
             }
         }
@@ -38,9 +37,9 @@ pipeline {
         stage('Docker Login and Push') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
-                        docker.image(FRONTEND_IMAGE).push()
-                        docker.image(BACKEND_IMAGE).push()
+                    docker.withRegistry('https://index.docker.io/v1/', env.DOCKER_CREDENTIALS) {
+                        docker.image(env.FRONTEND_IMAGE).push()
+                        docker.image(env.BACKEND_IMAGE).push()
                     }
                 }
             }
@@ -49,11 +48,11 @@ pipeline {
         stage('Helm Deploy to Kubernetes') {
             steps {
                 dir('helm') {
-                    sh '''
+                    sh """
                     helm upgrade --install mern ./mern \
-                      --set frontend.image=$FRONTEND_IMAGE \
-                      --set backend.image=$BACKEND_IMAGE
-                    '''
+                      --set frontend.image=${env.FRONTEND_IMAGE} \
+                      --set backend.image=${env.BACKEND_IMAGE}
+                    """
                 }
             }
         }
